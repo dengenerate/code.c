@@ -289,7 +289,7 @@ int main()
 	scanf_s("%d", &day);
 	switch (day)
 	{
-	    case 1:
+	        case 1:
 			printf("Monday");
 			break;
 		case 2:
@@ -310,6 +310,9 @@ int main()
 		case 7:
 			printf("Sunday");
 			break;
+	 	default://default  表示整形变量与整形常量不符合时，提示它输入错误
+	                printf("输入错误");
+			break; 				
 	}
 	return 0;
 }
