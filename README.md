@@ -264,3 +264,19 @@ int main()
 
 	return 0;
 }
+
+#include<stdio.h>
+int main()
+{
+	int age;
+	scanf_s("%d", &age);
+	if (age < 18)
+		printf("未成年：不能进入网吧\n");
+	else if (age >= 18 && age < 24)
+		printf("青年：可以进入网吧\n");
+	else if (age >= 24 && age < 60)
+		printf("成年：尽量少进入网吧\n");
+	else
+		printf("老年：不建议进入网吧\n");
+	return 0;
+}
