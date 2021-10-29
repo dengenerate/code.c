@@ -9,11 +9,19 @@ int main()
 	}
 	return 0;
 }
+
+
+#include<stdio.h>
+int main()
 	int Max(int num1, int num2)
 {
 	if (num1 > num2) return num1;
 	else return num2;
 }
+
+
+#include<stdio.h>
+int main()
 int main()
 {
 	int a, b,max=0;
