@@ -280,3 +280,29 @@ int main()
 		printf("老年：不建议进入网吧\n");
 	return 0;
 }
+
+
+#include<stdio.h>
+int main()
+{
+	int day;
+	scanf_s("%d", &day);
+	switch (day)
+	{
+	    case 1:
+			printf("Monday");
+		case 2:
+			printf("Thuesday");
+		case 3:
+			printf("Wednesday");
+		case 4:
+			printf("Thursday");
+		case 5:
+			printf("Friday");
+		case 6:
+			printf("Saturday");
+		case 7:
+			printf("Sunday");
+	}
+	return 0;
+}
