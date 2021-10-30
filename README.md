@@ -737,3 +737,32 @@ void main()
 		commission=39.00f;
 	printf("Commission :%.2f\n",commission);
 }
+
+
+#include <stdio.h>
+void main()
+{
+	int h,m;
+	double time;
+	printf("Enter a 24-hour time:");
+	scanf("%d:%d",&h,&m);
+	time=h+m/100.0;
+	if(time<=8.00)
+		printf("Closet departure time is %d:%d a.m.,arriving at 10:16 a.m.\n",h,m);
+	else if(time<=9.43)
+		printf("Closet departure time is %d:%d a.m.,arriving at 11:52 a.m.\n",h,m);
+	else if(time<=11.19)
+		printf("Closet departure time is %d:%d a.m.,arriving at 1:31 p.m.\n",h,m);
+	else if(time<=12.47)
+		printf("Closet departure time is %d:%d p.m.,arriving at 3:00 p.m.\n",h,m);
+	else if(time<=14.00)
+		printf("Closet departure time is %d:%d p.m.,arriving at 4:08 p.m.\n",h,m);
+	else if(time<=15.45)
+		printf("Closet departure time is %d:%d p.m.,arriving at 5:55 p.m.\n",h,m);
+	else if(time<=19.00)
+		printf("Closet departure time is %d:%d p.m.,arriving at 9:20 p.m.\n",h,m);
+	else if(time<=21.45)
+		printf("Closet departure time is %d:%d p.m.,arriving at 11:88 p.m.\n",h,m);
+	else
+		printf("Closet departure time is %d:%d %s,arriving at 10:16 a.m.\n",h,m,(int)time%12>0?"p.m.":"a.m.");
+}
