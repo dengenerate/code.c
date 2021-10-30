@@ -785,3 +785,23 @@ void main()
 		printf("%d/%d/%02d is earlier than %d/%d/%02d\n",m2,d2,y2,m1,d1,y1);
 }
 
+
+#include <stdio.h>
+void main()
+{
+	int ind ,val;
+	printf("Enter numerical grade:");
+	scanf("%d",&ind);
+	val=ind/10;
+	if(val<6)
+		val='F';
+	else if(val<7)
+		val='D';
+	else if(val<8)
+		val='C';
+	else if(val<9)
+		val='B';
+	else val='A';
+	printf("Letter grade: %c\n",val);
+}
+
