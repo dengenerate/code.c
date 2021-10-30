@@ -596,3 +596,44 @@ int main(void)
 	return 0;
 }
 
+
+
+#include<stdio.h>
+int main(void)
+{
+	int q, w, e, r, max1, min1, max2, min2, max, min;
+	printf("Enter four integers:");
+	scanf_s("%d%d%d%d", &q, &w, &e, &r);
+	if (q > w) {
+		min1 = w;
+		max1 = q;
+	}
+	else {
+		min1 = q;
+		max1 = w;
+	}
+	if (e > r) {
+		min2 = r;
+		max2 = e;
+	}
+	else {
+		min2 = e;
+		max2 = r;
+	}
+	if (min1 > min2)
+	{
+		min = min2;
+	}
+	else {
+		min = min1;
+	}
+	if (max2 > max1) {
+		max = max2;
+	}
+	else {
+		max = max1;
+	}
+	printf("Largest:%d\n", max);
+	printf("Smallest:%d\n", min);
+	return 0;
+}
