@@ -673,3 +673,33 @@ int main(void)
 			}
 	return 0;
 }
+
+
+#include<stdio.h>
+int main(void)
+{
+	int x;
+	printf("Enter a two-dight number:");
+	scanf("%d",&x);
+	if(x<0)
+	{
+		printf("输入错误\n");
+	}
+	else if(x<=59){
+		printf("Letter grade:F\n");
+	}
+	else if(x<=69){
+		printf("Letter grade:D\n");
+	}
+	else if(x<=79){
+		printf("Letter grade:C\n");
+	}
+	else if(x<=89){
+		printf("Letter grade:B\n");
+	}
+	else if(x<=100){
+		printf("Letter grade:A\n");
+	}
+	return 0;
+}
+
