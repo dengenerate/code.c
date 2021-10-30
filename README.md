@@ -545,3 +545,37 @@ int main(void)
 	return 0;
 
 }
+
+
+#include<stdio.h>
+int main(void)
+	{
+		float x;
+		printf("收入为:");
+		scanf_s("%f", &x);
+		if (x <= 750)
+		{
+			printf("税金=%.2f\n", x * 0.01);
+		}
+		else if (x <= 2250)
+		{
+			printf("税金=%.2f\n", 7.5 + (x - 750) * 0.02);
+		}
+		else if (x <= 3750)
+		{
+			printf("税金=%.2f\n", 37.50 + (x - 2250) * 0.03);
+		}
+		else if (x <= 5250)
+		{
+			printf("税金=%.2f\n", 82.50 + (x - 3750) * 0.04);
+		}
+		else if (x <= 7000)
+		{
+			printf("税金=%.2f\n", 142.50 + (x - 5250) * 0.05);
+		}
+		else if (x > 7000)
+		{
+			printf("税金=%.2f\n", 230.00 + (x - 7000) * 0.06);
+		}
+		return 0;
+	}
