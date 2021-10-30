@@ -703,3 +703,14 @@ int main(void)
 	return 0;
 }
 
+#include <stdio.h>
+void main()
+{
+	int h,m,hbak;
+	printf("Enter a 24-hour time:");
+	scanf("%d:%d",&h,&m);
+	hbak=h;
+	if(h>12)
+		h=h%12;
+	printf("Equivalent 12-hour time:%d:%d %s\n",h,m,hbak>12?"PM":"AM");
+}
