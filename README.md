@@ -481,3 +481,24 @@ int main(void)
 	printf("dights");
 	return 0;
 }
+
+
+
+#include<stdio.h>
+int main(void)
+{
+	int x, y, q;
+	printf("Enter a 24-hour time:");
+	scanf_s("%d %d", &x, &y);
+	if (x > 12)
+	{
+		q = x - 12;
+		printf("Equivalent 12-hour time:%d:%d PM\n", q, y);
+	}
+	else if (x <= 12)
+	{
+		q = x;
+		printf("Equivalent 12-hour time:%d:%d AM\n", q, y);
+	}
+	return 0;
+}
