@@ -450,3 +450,34 @@ int main()
 	}
 
 }
+
+
+
+#include<stdio.h>
+int main(void)
+{
+	printf("Enterb a number:");
+	int y;
+	scanf_s("%d", &y);
+	printf("The number %d has", y);
+	if (y >= 0)
+	{
+		if (y < 10)
+			printf(" 1 ");
+		else if(y < 100)
+			printf(" 2 ");
+		else if(y < 1000)
+			printf(" 3 ");
+	}
+	else
+	{
+		if (y >- 10)
+			printf(" 1 ");
+		else if(y >-100)
+			printf(" 2 ");
+		else if(y >-1000)
+			printf(" 3 ");
+	}
+	printf("dights");
+	return 0;
+}
