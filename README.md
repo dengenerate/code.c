@@ -637,3 +637,39 @@ int main(void)
 	printf("Smallest:%d\n", min);
 	return 0;
 }
+
+
+#include<stdio.h>
+int main(void)
+{
+	int x1, x2, y1, y2, z1, z11, z2, z22;
+	printf("Enter first date (mm/dd/yy):");
+	scanf_s("%d/%d/%1d%1d", &x1, &y1, &z1, &z11);
+	printf("Enter second date (mm/dd/yy):");
+	scanf_s("%d/%d/%1d%1d", &x2, &y2, &z2, &z22);
+	if (x1 > x2)
+	{
+		printf("%d/%d/%1d%1d is earlier than %d/%d/%1d%1d\n", x1, y1, z1, z11, x2, y2, z2, z22);
+	}
+	else if (x1 < x2) {
+		printf("%d/%d/%1d%1d is earlier than %d/%d/%1d%1d\n", x2, y2, z2, z22, x1, y1, z1, z11);
+	}
+	else if (x1 == x2)
+		if (y1 > y2) {
+			printf("%d/%d/%1d%1d is earlier than %d/%d/%1d%1d\n", x1, y1, z1, z11, x2, y2, z2, z22);
+		}
+		else if (y1 < y2) {
+			printf("%d/%d/%1d%1d is earlier than %d/%d/%1d%1d\n", x2, y2, z2, z22, x1, y1, z1, z11);
+		}
+		else if (y1 == y2)
+			if ((10 * z1 + z11) > (10 * z2 + z22)) {
+				printf("%d/%d/%1d%1d is earlier than %d/%d/%1d%1d\n", x1, y1, z1, z11, x2, y2, z2, z22);
+			}
+			else if ((10 * z1 + z11) < (10 * z2 + z22)) {
+				printf("%d/%d/%1d%1d is earlier than %d/%d/%1d%1d\n", x2, y2, z2, z22, x1, y1, z1, z11);
+			}
+			else {
+				printf("%d/%d/%1d%1d is earlier than %d/%d/%1d%1d\n", x1, y1, z1, z11, x2, y2, z2, z22);
+			}
+	return 0;
+}
