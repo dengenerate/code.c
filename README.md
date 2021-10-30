@@ -766,3 +766,22 @@ void main()
 	else
 		printf("Closet departure time is %d:%d %s,arriving at 10:16 a.m.\n",h,m,(int)time%12>0?"p.m.":"a.m.");
 }
+
+
+#include <stdio.h>
+void main()
+{
+	int d1,m1,y1,d2,m2,y2;
+	double val1,val2;
+	printf("Enter first date(mm/dd/yy):");
+	scanf("%d/%d/%d",&m1,&d1,&y1);
+	printf("Enter second date(mm/dd/yy):");
+	scanf("%d/%d/%d",&m2,&d2,&y2);
+	val1=y1+m1/10.0+d1/100.0;
+	val2=y2+m2/10.0+d2/100.0;
+	if(val1<val2)
+		printf("%d/%d/%02d is earlier than %d/%d/%02d\n",m1,d1,y1,m2,d2,y2);
+	else
+		printf("%d/%d/%02d is earlier than %d/%d/%02d\n",m2,d2,y2,m1,d1,y1);
+}
+
