@@ -502,3 +502,46 @@ int main(void)
 	}
 	return 0;
 }
+
+
+
+#include<stdio.h>
+int main(void)
+{
+	int num;
+	float price, value, commission1,commission2;
+	printf("输入购股数量: ");
+	scanf_s("%d", &num);
+	printf("输入每股单价: ");
+	scanf_s("%f", &price);
+	value = num * price;
+	if (value < 2500.0f) {
+		commission1 = 30.0f + 0.017f * value;
+	}
+	else if (value < 6250.0f) {
+		commission1 = 56.0f + 0.0066f * value;
+	}
+	else if (value < 20000.0f) {
+		commission1 = 76.0f + 0.0034f * value;
+	}
+	else if (value < 50000.0f) {
+		commission1 = 100.0f + 0.0022f * value;
+	}
+	else if (value < 500000.0f) {
+		commission1 = 155.0f + 0.0011f * value;
+	}
+	else {
+		commission1 = 255.0f + 0.0009f * value;
+	}
+	if (commission1 < 39) commission1 = 39;
+	//竞争对手 
+	if (num < 2000) {
+		commission2 = 33.03f * num;
+	}
+	else {
+		commission2 = 33.02f * num;
+	}
+	printf("你的佣金是: $%.2f ,竞争对手的佣金是: $%.2f", commission1, commission2);
+	return 0;
+
+}
