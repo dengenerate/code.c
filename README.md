@@ -1053,3 +1053,29 @@ void print_digits_array(void)
 	printf("\n");
 }
 
+#define _CRT_SECURE_NO_WARNINGS
+#include<stdio.h>
+int main()
+{
+	int multipy=1;
+	int n;
+	int i ;
+	printf("请输入n的值并计算n的阶乘以及至n的阶乘之和:");
+	scanf_s("%d", &n);
+	for (i = 1; i <= n; i++)
+	{
+			multipy = multipy * i;
+			printf("%d的阶乘multipy=%d\t", i, multipy);	
+			if (i % 4 == 0)
+				printf("\n");
+	}
+	int m, p,q=1;
+	int sum = 0;
+	for (m = 1; m <= n; m++)
+	{
+		q = q * m;
+		sum = q + sum;
+	}
+	printf("\nsum=%d\n", sum);
+	return 0;
+}
