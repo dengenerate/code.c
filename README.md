@@ -1137,3 +1137,35 @@ int main()
 	}
 	return 0;
 }
+
+
+
+#define _CRT_SECURE_NO_WARNINGS
+#include<stdio.h>
+#include<string.h>
+#include<windows.h>
+#include<stdlib.h>
+int main()
+{
+	int i = 0;
+	char password[20] = { 0 };
+	for (i = 0; i < 3; i++)
+	{
+		printf("输入密码:\n");
+		scanf("%s", &password);
+		if (strcmp(password ,"youarefool74sb")==0)//strcmp比较两个字符串是否相等
+		{
+			printf("密码正确\n");//  ==不能用来判断两个字符串是否相等
+			break;
+		}
+	}
+	if (i == 3)
+	{
+		printf("请等待3秒、\n");
+	}
+		//Sleep(3000);//休息三秒
+		//system("cls");//执行系统命令的一个函数  cls   清空屏幕  库函数
+	return 0;
+}
+
+
