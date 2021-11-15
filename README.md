@@ -1111,3 +1111,29 @@ int main()
 	if (left > right)
 		printf("no");
 }
+
+
+
+#define _CRT_SECURE_NO_WARNINGS
+#include<stdio.h>
+#include<string.h>
+#include<windows.h>
+#include<stdlib.h>
+int main()
+{
+	char arr1[] = "welcome to new york!!!!!";
+	char arr2[] = "########################";
+	int left = 0;
+	int right = strlen(arr1) - 1;
+	while (left <= right)
+	{
+		arr2[left] = arr1[left];
+		arr2[right] = arr1[right];
+		left++;
+		right--;
+		printf("arr2:%s\n", arr2);
+		Sleep(3000);//休息三秒
+		//system("cls");//执行系统命令的一个函数  cls   清空屏幕  库函数
+	}
+	return 0;
+}
