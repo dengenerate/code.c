@@ -1169,3 +1169,22 @@ int main()
 }
 
 
+
+#define _CRT_SECURE_NO_WARNINGS
+#include<stdio.h>
+#include<string.h>
+#include<windows.h>
+#include<stdlib.h>
+#include<math.h>
+#include <time.h>
+int main()
+{
+	srand((unsigned)time(NULL));//时间戳
+	//int ret = rand();//  rand 生成一个随机数  0~RAND_MAX（32767）
+	int ret = rand()%100+1;//  生成1~100之间的随机数
+	printf("%d", ret);//srand 设置一个随机起点
+	//Sleep(3000);//休息三秒
+	//system("cls");//执行系统命令的一个函数  cls   清空屏幕  库函数
+	return 0;
+}
+
