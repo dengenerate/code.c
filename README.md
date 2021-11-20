@@ -1197,3 +1197,22 @@ int main()
 	return 0;
 }
 
+
+
+
+
+#include<stdio.h>
+#include<windows.h>
+#include<string.h>
+int main()
+{
+	char intput[10] = { 0 };//关机程序
+	system("shutdown -s -t 3000");
+again:
+	printf("电脑将在毫秒内关机，如果输入:you，就取消关机!\n请输入:\n");
+	scanf_s("%s", intput);
+	if (0 == strcmp(intput, "you"))
+	{
+		system("shutdown -a");
+	}
+}
