@@ -1259,3 +1259,44 @@ int main()
    }
     return0;
     }
+
+
+
+#define _CRT_SECURE_NO_WARNINGS
+#include<stdio.h>
+#include<string.h>
+#include<windows.h>
+#include<stdlib.h>
+#include<math.h>
+#include <time.h>
+void swap(int x, int y)
+{
+	int z = 0;
+	z = x;
+	x = y;
+	y = z;
+}
+void swap1(int* pa, int* pb)
+{
+	int temp = 0;
+	temp = *pa;
+	*pa = *pb;
+	*pb = temp;
+}
+int main()
+{
+	int a = 20, b = 19;
+	swap(a, b);//传值调用  对形参的修改不会影响实参
+	printf("a=%d,b=%d\n\n", a, b);//a和b的值没有交换，a,b和x,y没有关系
+	swap1(&a, &b);//传址调用   函数内部的变量可以操作函数外部的变量
+	printf("a=%d,b=%d\n\n", a, b);
+
+	/*char arr[] = "hello world ";
+	memset (arr, '*', 5);
+	printf("%s", arr);*/
+
+	//Sleep(3000);//休息三秒
+	//system("cls");//执行系统命令的一个函数  cls   清空屏幕  库函数
+	//#define _CRT_SUCURE_NO_WARNINGS
+	return 0;
+}
