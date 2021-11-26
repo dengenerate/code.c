@@ -1300,3 +1300,30 @@ int main()
 	//#define _CRT_SUCURE_NO_WARNINGS
 	return 0;
 }
+
+
+
+#include<stdio.h>错位相减N项的和
+int main()
+{
+	int  n, k=1;
+	int i = 0;
+	double x, y,sum=0;
+	x = y = 1.0;
+	scanf_s("%d", &n);
+	/*方法一:while (n)
+	{
+		sum += x / y*k;
+		x += 1;
+		y += 2;
+		k = -k;
+		n--;
+	}*/
+	/*方法二:for (i = 1; i <= n; i++)
+	{
+		sum += (double)i/ (double)(i*2-1) * k;
+		k = -k;
+	}
+	printf("%.3f", sum);*/
+	return 0;
+}
