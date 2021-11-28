@@ -1327,3 +1327,31 @@ int main()
 	printf("%.3f", sum);*/
 	return 0;
 }
+
+
+
+
+#include<stdio.h>
+#include<math.h>
+int main()
+{
+	int i;
+	int m, n;
+	int k=0;//求大于m的最小素数
+	scanf_s("%d", &m);
+	for ( i= m + 1; i > m; i++)//从m+1开始查找合适的素数i
+	{
+		k = 0;
+		for (n = 2; n < i; n++)//判断n是否是i的一个因数
+		{
+			if (i % n == 0)
+				k = 1;//为找到因数做一个标记
+			break;//找到因数可以跳出《i所在的循环》
+		}
+		if (!k)//如果k依旧是0，则找到想要的数了
+			break;//符合就跳出最外层的循环
+			
+	}
+	printf("%d", i);
+	return 0;
+}
