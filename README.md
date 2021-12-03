@@ -1537,3 +1537,193 @@ Q chufa1(Q* pa, Q* pb)
 	c.m_r = (pa->m_r * pb->m_i - pa->m_i * pb->m_r) / (pb->m_i * pb->m_i + pb->m_r * pb->m_r);
 	return c;
 }
+
+
+#include <stdio.h>
+#include <math.h>
+int main()
+{
+	double Get_Pingjunzhi(double *pSource,int ns);//函数原型声明
+	double Get_Biaozhunca(double *pSource,int ns,double Pingjunzhi);//函数原型声明
+	double u,sigma;
+	double fx,changliang,x;
+	double max;
+	int mark_line=0;
+	double yzsj[]={2000,1682,1414,1189,1000,841,707,595,500,420,354,297,250,
+		210,177,149,125,105,88,74,62.5,52.6,44.2,37.2,31.3,26.3,15.6,7.8,3.9,
+		2.02,0.98,0.49,0.24};
+	u=Get_Pingjunzhi(yzsj,sizeof(yzsj)/sizeof(double));//获得平均值
+	sigma=Get_Biaozhunca(yzsj,sizeof(yzsj)/sizeof(double),u);//获得标准差
+	printf("均值:%.8f\n标准差:%.8f\n",u,sigma);
+	changliang=1.0/(sqrt(2.0*3.1415926)*sigma);
+	for(x=0;x<=2000;x+=10)
+	{
+		fx=changliang*exp(-(x-u)*(x-u)/(2*sigma*sigma));
+		printf("%12.8f",fx);
+		if(mark_line==0)
+			max=fx;
+		else if(fx>max)
+			max=fx;
+		mark_line++;
+		if(mark_line%6==0)
+			printf("\n");
+	}
+	printf("\n最大概率 %f\n",max);
+	return 0;
+}
+
+/*********************************************
+功能：计算机给定double型指针内数据的平均值
+输入参数:double *pSource数据源地址,int ns数据个数
+输出值：如果数据个数为0或pSource为空返回0.0,否则返回平均值.
+**********************************************/
+double Get_Pingjunzhi(double *pSource,int ns)
+{
+	double sum=0.0;
+	int i=0;
+	if(ns==0 || pSource==NULL)
+		return 0.0;
+	while(ns!=0 && i<ns)
+		sum+=*pSource,i++,pSource++;
+	return sum/ns;
+}
+/*********************************************
+功能：计算机给定double型指针内数据的标准差
+输入参数:double *pSource数据源地址,int ns数据个数,double Pingjunzhi
+输出值：如果数据个数<2或pSource为空返回0.0,否则返回标准差.
+**********************************************/
+double Get_Biaozhunca(double *pSource,int ns,double Pingjunzhi)
+{
+	int i=0;
+	double sum=0.0;
+	if(pSource==NULL || ns<2)
+		return 0.0;
+	while(i<ns)
+	{
+		sum+=(*pSource-Pingjunzhi)*(*pSource-Pingjunzhi);
+		pSource++;
+		i++;
+	}
+	sum=sum/(ns-1);
+	sum=sqrt(sum);
+	return sum;
+}
+
+
+
+//（4）在你的应用程序中添加一函数专门计算给定数据序列的正态分布概率，例如用你的程序计算{0.0048,0.0122,0.0695,0.1198,0.1664,0.1896,0.1664,0.1198,0.0695,0.0325,0.0122,0.0048}序列的正态分布的概率。
+#include <stdio.h>
+#include <math.h>
+#include <string.h>
+int main()
+{
+	double Out_ZhangtaifengbuKailu(double *pSourceData,const int ns,double xInit,double xStep,double xMax,char *pOutText,int OutByte);
+	char Out_TextBuf[1024]={'\0'};//数据输出需要的内存1K,如果不够就要人加长。
+	//已知数据存放到数组里
+	double yzsj[]={0.0048,0.0122,0.0695,0.1198,0.1664,0.1896,0.1664,
+0.1198,0.0695,0.0325,0.0122,0.0048};
+	double max;
+	//调用函数计算已知数据的正态分布概率,实参输入:(数据地址,数据个数,循环的初值,步长值,最大值,输出存放内存地址,输出内存长度)
+	max=Out_ZhangtaifengbuKailu(yzsj,sizeof(yzsj)/sizeof(double),0,
+0.0025,1,Out_TextBuf,sizeof(Out_TextBuf));
+	printf("最大概率 %f\n各值概率:\n",max);
+	printf("%s\n",Out_TextBuf);
+	return 0;
+}
+/*********************************************
+功能：计算机给定double型指针内数据的平均值
+输入参数:double *pSource数据源地址,int ns数据个数
+输出值：如果数据个数为0或pSource为空返回0.0,否则返回平均值.
+**********************************************/
+double Get_Pingjunzhi(double *pSource,const int ns)
+{
+	double sum=0.0;
+	int i=0;
+	if(ns==0 || pSource==NULL)
+		return 0.0;
+	while(ns!=0 && i<ns)
+		sum+=*pSource,i++,pSource++;
+	return sum/ns;
+}
+/*********************************************
+功能：计算机给定double型指针内数据的标准差
+输入参数:double *pSource数据源地址,int ns数据个数,double Pingjunzhi
+输出值：如果数据个数<2或pSource为空返回0.0,否则返回标准差.
+**********************************************/
+double Get_Biaozhunca(double *pSource,const int ns,const double Pingjunzhi)
+{
+	int i=0;
+	double sum=0.0;
+	if(pSource==NULL || ns<2)
+		return 0.0;
+	while(i<ns)
+	{
+		sum+=(*pSource-Pingjunzhi)*(*pSource-Pingjunzhi);
+		pSource++;
+		i++;
+	}
+	sum=sum/(ns-1);
+	sum=sqrt(sum);
+	return sum;
+}
+/*********************************************
+功能：计算给定数据的正态概率分布
+输入参数:
+	double *pSourceData给定数据地址,
+	const int ns,数据个数
+	double xInit,计算正态分布的初始值
+	double xStep,步长值
+	double xMax,计算分值的最大值
+	char *pOutText字符输出存放内存地址
+	int Outbytes存放输出数据内存长度
+输出值：
+	如果能正确计算输出最大概率,否则返回0.0错识标识值.
+**********************************************/
+double Out_ZhangtaifengbuKailu(double *pSourceData,const int ns,double xInit,double xStep,double xMax,char *pOutText,int Outbytes)
+{
+	double max;//最大概率
+	double u;//均值
+	double sigma;//标准差
+	double Part1;//公式的部分值
+	double x;//循环变量
+	double Fx;//计算值
+	char bStart=0;//未开始计算
+	int Out_const=0;//输出数据次数计数
+
+	if(pSourceData==NULL || ns<2)
+		return 0.0;//错误编码
+	u=Get_Pingjunzhi(pSourceData,ns);//求取均值
+	sigma=Get_Biaozhunca(pSourceData,ns,u);
+	Part1=sqrt(2*3.1415926)*sigma;//公式的前半部分值
+	Part1=1.0/Part1;
+	for(x=xInit;x<=xMax;x+=xStep)
+	{
+		static double Before=0.0;//记前次的Fx
+		Fx=Part1*exp(-(x-u)*(x-u)/(2*sigma*sigma));
+		if(!bStart)
+			max=Fx,bStart=1;//计算出的第1个概率
+		else if(Fx>max)
+			max=Fx;
+		if(fabs(Before-Fx)<1.0e-7 && fabs(Fx)<1.0e-7)
+			break;
+		Before=Fx;
+		if(pOutText)//如果指针不为空则输出文本
+		{
+			char text[100];
+			char *pError=NULL;
+			sprintf(text,"(%.6f) %.8f",x,Fx); 
+			strcat(pOutText,text);
+			if(strlen(pOutText)+strlen(text)<=Outbytes)
+			{
+				Out_const++;//输出计数
+				if(Out_const%5==0)
+					pError=strcat(pOutText,"\n");//插入换行
+				else
+					pError=strcat(pOutText,"\t");//插入跳格
+
+			}
+			else
+				printf("pOutText内存空间不够!\n");
+		}
+	}
+}
