@@ -1355,3 +1355,185 @@ int main()
 	printf("%d", i);
 	return 0;
 }
+
+
+
+
+#include<stdio.h>
+#include<math.h>
+int main()
+{
+	double arr[] = { 28.9,32.7,45.6,78,35,86.2,27.8,43,56,65 };
+	int sz = sizeof(arr) / sizeof(arr[0]);
+	int number,i;
+	double sum = 0,all=0;
+	for (i = 0; i < sz; i++)
+	{
+		scanf_s("%d", &number);
+		sum = arr[i] * number;
+		all += sum;
+	}
+	printf("%f", all);
+	return 0;
+}
+#include <stdio.h>
+int main()
+{
+	int n, m, ans;//n行m列，ans 存入每行的答案
+	int i, j, num;
+	scanf_s("%d %d", &n, &m);//输出矩阵各行元素的所有正数的和
+	for (i = 1; i <=n; i++)
+	{
+		ans = 0;
+		for (j = 1; j <= m; j++)
+		{
+			scanf_s("%d", &num);
+			if (num > 0)
+				ans += num;
+		}
+		printf("%d\n", ans);
+	}
+	return 0;
+}
+#define _CRT_SECURE_NO_WARNINGS
+#include<stdio.h>
+int main()
+{
+	int score[6], std, i;
+	int con1 = 0, con2 = 0, con3 = 0;
+	scanf("%d", &std);
+	for (i = 0; i < 6; i++)
+	{
+		scanf("%d", &score[i]);
+		if (score[i] > std)
+			con1++;//大于老师指定成绩人数
+		else if(score[i] < std)
+			con2++;//小于老师指定成绩人数
+		else
+			con3++;//等于老师指定成绩
+	}
+	if (con1 == 6)//全是>老师指定成绩
+		printf("202 zui shuai\n");
+	else if(con2 == 6)//全是小于老师指定成绩
+		printf("come on!\n");
+	else
+	{
+		int maxdiff, v = -1;
+		printf("zui shuai\n");
+		//找出最接近老师指定成绩
+		for (maxdiff = score[0], i = 0; i < 6; i++)
+		{
+			if (score[i] < std && std - score[i] < maxdiff)
+			{
+				v = score[i];
+				maxdiff = std - score[i];
+			}
+		}
+		printf("%d\n", v);//输出大于老题指定成绩
+		for (i = 0; i < 6; i++)
+		{
+			if (score[i] > std)
+				printf("%d ", score[i]);
+		}
+	}
+	return 0;
+}
+//{{TESTDATA}}88
+//77 65 89 90 91 93 
+// {{OUT}}
+//zui shuai
+//89 90 91 93
+
+
+#include<stdio.h>
+typedef struct fushu
+{
+	double m_i;
+	double m_r;
+}Q;
+Q jiafa(Q a, Q b);
+Q jiafa1( Q *pa, Q *pb);
+Q jianfa(Q a, Q b);
+Q jianfa1(Q* pa, Q* pb);
+Q chengfa(Q a, Q b);
+Q chengfa1(Q* pa, Q* pb);
+Q chufa(Q a, Q b);
+Q chufa1(Q* pa, Q* pb);
+int main()
+{
+	Q ma = { 1,2 }, mb = { -2,-6 }, mc;
+	mc = jiafa(ma, mb);
+	printf("%.2f%c%.2fi\n", mc.m_i, mc.m_r > 0 ? '+' : '-', mc.m_r > 0 ? mc.m_r : -mc.m_r);
+	mc = jiafa1(&ma, &mb);
+	printf("%.2f%c%.2fi\n", mc.m_i, mc.m_r > 0 ? '+' : '-', mc.m_r > 0 ? mc.m_r : -mc.m_r);
+	mc = jianfa(ma, mb);
+	printf("%.2f%c%.2fi\n", mc.m_i, mc.m_r > 0 ? '+' : '-', mc.m_r > 0 ? mc.m_r : -mc.m_r);
+	mc = jianfa1(&ma,&mb);
+	printf("%.2f%c%.2fi\n", mc.m_i, mc.m_r > 0 ? '+' : '-', mc.m_r > 0 ? mc.m_r : -mc.m_r);
+	mc = chengfa(ma, mb);
+	printf("%.2f%c%.2fi\n", mc.m_i, mc.m_r > 0 ? '+' : '-', mc.m_r > 0 ? mc.m_r : -mc.m_r);
+	mc = chengfa1(&ma,&mb);
+	printf("%.2f%c%.2fi\n", mc.m_i, mc.m_r > 0 ? '+' : '-', mc.m_r > 0 ? mc.m_r : -mc.m_r);
+	mc = chufa(ma, mb);
+	printf("%.2f%c%.2fi\n", mc.m_i, mc.m_r > 0 ? '+' : '-', mc.m_r > 0 ? mc.m_r : -mc.m_r);
+	mc = chufa1(&ma,&mb);
+	printf("%.2f%c%.2fi\n", mc.m_i, mc.m_r > 0 ? '+' : '-', mc.m_r > 0 ? mc.m_r : -mc.m_r);
+
+
+}
+Q jiafa(Q a, Q b)
+{
+	Q c;
+	c.m_i = a.m_i + b.m_i;
+	c.m_r = a.m_r + b.m_r;
+	return c;
+}
+Q jiafa1(Q* pa, Q* pb)
+{
+	Q c;
+	c.m_i = pa->m_i + pb->m_i;
+	c.m_r = pa->m_r + pb->m_r;
+	return c;
+}
+Q jianfa(Q a, Q b)
+{
+	Q c;
+	c.m_i = a.m_i - b.m_i;
+	c.m_r = a.m_r - b.m_r;
+	return c;
+}
+Q jianfa1(Q* pa, Q* pb)
+{
+	Q c;
+	c.m_i = pa->m_i - pb->m_i;
+	c.m_r = pa->m_r - pb->m_r;
+	return c;
+}
+Q chengfa(Q a, Q b)
+{
+	Q c;
+	c.m_i = a.m_i * b.m_i - a.m_r * b.m_r;
+	c.m_r = a.m_i * b.m_r + a.m_r * b.m_i;
+	return c;
+}
+Q chengfa1(Q* pa, Q* pb)
+{
+	Q c;
+	c.m_i = pa->m_i * pb->m_i - pa->m_r * pb->m_r;
+	c.m_r = pa->m_i * pb->m_r + pa->m_r * pb->m_i;
+	return c;
+}
+Q chufa(Q a, Q b)
+{
+	Q c;
+	c.m_i = (a.m_i * b.m_i + a.m_r * b.m_r) / (b.m_i * b.m_i + b.m_r * b.m_r);
+	c.m_r = (a.m_r * b.m_i - a.m_i * b.m_r) / (b.m_i * b.m_i + b.m_r * b.m_r);
+	return c;
+}
+Q chufa1(Q* pa, Q* pb)
+{
+	Q c;
+	c.m_i = (pa->m_i * pb->m_i + pa->m_r * pb->m_r) / (pb->m_i * pb->m_i + pb->m_r * pb->m_r);
+	c.m_r = (pa->m_r * pb->m_i - pa->m_i * pb->m_r) / (pb->m_i * pb->m_i + pb->m_r * pb->m_r);
+	return c;
+}
