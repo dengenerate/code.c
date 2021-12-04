@@ -1727,3 +1727,39 @@ double Out_ZhangtaifengbuKailu(double *pSourceData,const int ns,double xInit,dou
 		}
 	}
 }
+
+
+
+#include<stdio.h>
+#include<math.h>
+double listtail (double *pd, int  n, double x0);
+int main()
+{
+	double ds[4] = { 2,-3,3,-6 };
+	double x1;
+	x1 = (listtail)(ds, 4, 0.2);
+	printf("%.2f", x1);
+	return 0;
+}
+double listtail(double* pd, int  n, double x0)
+{
+	double x1, x2, fx, fdx;
+	int i;
+	x1 = x2 = x0;
+	do
+	{
+		x1 = x2;
+		//求函数值
+		for (fx = 0, i = 0; i < n; i++)
+		{
+			fx += pd[i] * pow(x1, n - 1 - i);
+		}
+		//求导数值
+		for (fdx = 0, i = 0; i < n; i++)
+		{
+			fdx += pd[i] * pow(x1, n - 1 - 1 - i) * (n - 1 - i);
+		}
+		x2 = x1 -fx / fdx;
+	} while (fabs(x2 - x1) >= 1.0e-6);
+	return x2;
+}
