@@ -1992,3 +1992,72 @@ int LoadLinkNote(stu* pHeader, char* pPathName)
 }
 
 
+
+
+
+
+#define _CRT_SECURE_NO_WARNINGS
+#include<stdio.h>
+#include<math.h>
+#include<stdlib.h>
+#include<string.h>
+void  swap(int* pa, int* pb)
+{
+	int temp=0;
+	temp = *pa;
+	*pa = *pb;
+	*pb = temp;
+}
+int swap1(int pa, int pb)
+{
+	if (pa != pb)
+		(pa > pb) ? pa : pb;
+	else
+		return pa;
+}
+int swap2(int* ds, int n)
+{
+	int max=0;
+	int min=0;
+	max = min = ds[0];
+	for (int i = 0; i < n; i++)
+	{
+		if (ds[i] > max)
+			max = ds[i];
+		else if (ds[i] < min)
+			min = ds[i];
+	}
+	return max;
+}
+int main1()
+{
+	char ds[] = { "veccvcvvc" };
+	char ds1[80] = { "gddqwdq" };
+	char ds2[80] = { "the beauty of nature" };
+	memset(ds2,'*',2);
+	strcpy(ds1, ds);
+	printf("%s\n", ds1);
+	strcat(ds1, "ddvsvsvsdsss");
+	printf("%s\n", ds1);
+	strncat(ds1, "ddvsvsvsdsss", 5);
+	printf("%s\n", ds1);
+	printf("%s", ds2);
+	return 0;
+}
+
+int main2()
+{
+	int a = 10;
+	int b = 20;
+	int ds[] = { 1,2,3,4,5,67,9,8 };
+	int sz = sizeof(ds) / sizeof(ds[0]);
+	int max = 0;
+	swap(&a,&b);
+	printf("%d   %d\n", a, b);
+	max=swap1(a, b);
+	printf("%d\n",max);
+	int ss = swap2(ds, sz);
+	printf("%d\n",ss);
+	return 0;
+}
+
