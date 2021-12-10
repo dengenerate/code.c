@@ -1763,3 +1763,232 @@ double listtail(double* pd, int  n, double x0)
 	} while (fabs(x2 - x1) >= 1.0e-6);
 	return x2;
 }
+
+#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
+#include <string.h>
+#include <malloc.h>
+typedef struct _stu_info_
+{
+	char ID[11];	//学号
+	char Name[13];	//姓名
+	double Score;	//成绩
+	struct _stu_info_* m_pNext;	//下一个学生信息存储位置
+}stu;
+
+stu* Tail(stu* pHeader, stu Obj);
+void DisplayLink(stu* pHeader);
+int DeleteNote(stu* pHeader, char* pKeyword);
+stu* FindNote(stu* pHeader, char* pKeyword, stu** pBefore);
+void FreeLink(stu* pHeader);
+void SaveLinkNote(stu* pHeader, char* pPathName);
+int LoadLinkNote(stu* pHeader, char* pPathName);
+
+void main1()
+{
+	stu Header;
+	Header.m_pNext = NULL;
+	if (LoadLinkNote(&Header, "D:\新建文件夹") > 0)
+		DisplayLink(&Header);//显示10个节点信息
+	FreeLink(&Header);
+}
+void main()
+{
+	int i = 0;
+	//定义一个节点标识链表,它的m_pNext记首节点指针
+	stu Header;
+	stu* pBefore = NULL, * pCurObj = NULL;
+	stu Obj = { "2019442116","ZhangShan",90.5,NULL };
+	Header.m_pNext = NULL;
+	//向Header链表添加10个节点
+	for (i = 0; i < 10; i++)
+	{
+		sprintf(Obj.ID, "20194421%02d", i + 1);
+		sprintf(Obj.Name, "Student_%c", i + 'A');
+		Obj.Score = 85 + i;
+		pCurObj = Tail(&Header, Obj);//追加到链表中
+	}
+	//显示10个节点信息
+	DisplayLink(&Header);
+	//链表节点数据写入文件
+	SaveLinkNote(&Header, "D:\新建文件夹");
+	//删除首节点关键字学号为2019442101的节点
+	if (DeleteNote(&Header, "2019442101"))
+	{
+		printf("删除首节点后的链表节点:\n");
+		DisplayLink(&Header);
+	}
+	//删除中间一节点
+	if (DeleteNote(&Header, "2019442107"))
+	{
+		printf("删除中间节点后的链表节点:\n");
+		DisplayLink(&Header);
+	}
+	//删除尾节点
+	if (DeleteNote(&Header, "2019442110"))
+	{
+		printf("删除尾节点后的链表节点:\n");
+		DisplayLink(&Header);
+	}
+	//找出关键字存在的节点,实施数据修改
+	if ((pCurObj = FindNote(&Header, "2019442108", &pBefore)))  //查找"2019442108"节点
+	{
+		strcpy(pCurObj->Name, "姓名被修改");
+		pCurObj->Score = 59.6;
+		printf("修改节点数据后的链表节点:\n");
+		DisplayLink(&Header);
+	}
+	//释放链表节点占用的内存
+	FreeLink(&Header);
+}
+/*********************************************
+功能：将新节点Obj追加到链尾
+输入：pHeader记录首节点的内存；Obj追加节点
+输出：新节点位置指针
+*********************************************/
+stu * Tail(stu * pHeader, stu Obj)
+{
+	stu* pTail = NULL, * pNewNote;
+	pTail = pHeader->m_pNext;
+	while (pTail && pTail->m_pNext != NULL) 	//找到链尾节点
+		pTail = pTail->m_pNext;//指针后移
+	pNewNote = (stu*)malloc(sizeof(stu));  //申请能存放一个节点数据的内存
+	*pNewNote = Obj; //结构体整体赋值
+	pNewNote->m_pNext = NULL; //链尾标识
+	if (pTail == NULL)
+		pHeader->m_pNext = pNewNote; //首节点指针须记录到头中
+	else
+		pTail->m_pNext = pNewNote;
+	return pNewNote;//返回追加的新节点指针
+}
+/***********************************************
+功能：从头遍历链表;输出节点数据
+输入：记录头节点的指针
+输出：返回值无;显示节点数据
+***********************************************/
+void DisplayLink(stu* pHeader)
+{
+	while (pHeader && pHeader->m_pNext != NULL)
+	{
+		pHeader = pHeader->m_pNext;//指针后移
+		printf("%s\t%s\t%.2f\n", pHeader->ID, pHeader->Name, pHeader->Score);
+	}
+}
+/*
+功能：在链表中找出关键字存在的节点并删除
+输入:pHeader链头指针;pKeyword节点关键字
+输出:删除成功返回1，未删除返回0
+*/
+int DeleteNote(stu* pHeader, char* pKeyword)
+{
+	stu* pDelete = NULL, * pBefore = NULL;
+	/*调用FindNote查找关键定存在的节点,存在的节点的前节点指针保存到pBefore占用的内存中*/
+	pDelete = FindNote(pHeader, pKeyword, &pBefore);
+	if (!pDelete)
+		return 0; //删除失败
+	if (pBefore == NULL) //前一个节点为空,则删除节点为首节点
+		pHeader->m_pNext = pDelete->m_pNext; //被删除节点的下一个节点为首节点
+	else if (pDelete->m_pNext == NULL) //尾节点
+		pBefore->m_pNext = NULL;
+	else
+		pBefore->m_pNext = pDelete->m_pNext;//构成新链接关系
+	free(pDelete);//释放节点占用内存
+	return 1;//删除成功
+}
+/******************************************************************
+功能：在链表中找出关键存在的节点
+输入：pHeader链表头指针,pKeyword查找关键字,pBefore保存前节点指针的指针
+输出: 找到返回节点指针，否则返回NULL
+******************************************************************/
+stu* FindNote(stu* pHeader, char* pKeyword, stu** pBefore)
+{
+	stu* pLoop = NULL, * pObj = NULL, * pUp = NULL;
+	if (pHeader == NULL || pKeyword == NULL)
+		return NULL;
+	pLoop = pHeader->m_pNext;
+	while (pLoop)
+	{
+		if (strcmp(pLoop->ID, pKeyword) == 0)//字符串比较
+		{
+			pObj = pLoop;
+			break;//找到节点，强制循环结束
+		}
+		pUp = pLoop; //前节点指针
+		pLoop = pLoop->m_pNext; //下一节点指针
+	}
+	if (pObj == NULL)//未找到
+		return NULL;
+	*pBefore = pUp; //pObj的前节点
+	return pObj; //找到返加节点指针
+}
+/*************************************************
+功能：从头遍历链表，释放每一个节点占用的内存空间
+输入：StuInfo *pHeader链表头节点指针
+输出：返回值无；
+*************************************************/
+void FreeLink(stu * pHeader)
+{
+	stu* pDelete = NULL;
+	if (!pHeader)
+		return;
+	pDelete = pHeader->m_pNext;
+	while (pDelete)
+	{
+		stu* pNext = pDelete->m_pNext;//下一个节点指针暂存
+		free(pDelete); //释放pDelete指向的内存空间
+		pDelete = pNext; //pDelete指针指向下一个节点
+	}
+	pHeader->m_pNext = NULL;//链表头的成员m_pNextd置空
+}
+/******************************
+功能：将链表节点写入文件
+输入：StuInfo *pHeader链表头,char *pPathName 文件路径名
+输出:无
+*******************************/
+void SaveLinkNote(stu* pHeader, char* pPathName)
+{
+	FILE* pFile = NULL;
+	if (!pHeader)
+		return;
+	pHeader = pHeader->m_pNext;
+	if (pHeader == NULL)
+		return;
+	//pFile=fopen(pPathName,"wb");
+	fopen_s(&pFile, pPathName, "wb");
+	if (pFile == NULL)
+		return;
+	while (pHeader)
+	{
+		fwrite(pHeader, sizeof(stu), 1, pFile);
+		pHeader = pHeader->m_pNext;
+	}
+	fclose(pFile);
+}
+/******************************
+功能：将文件读入链表
+输入：StuInfo *pHeader链表头,char *pPathName 文件路径名
+输出:读入节点数
+*******************************/
+int LoadLinkNote(stu* pHeader, char* pPathName)
+{
+	FILE* pf;
+	stu ValObj;
+	int ns = 0;
+	if (!pHeader || !pPathName)
+		return 0;
+	fopen_s(&pf, pPathName, "rb");
+	if (pf == NULL)
+		return 0;
+	while (!feof(pf))
+	{
+		if (fread(&ValObj, sizeof(stu), 1, pf) == 1)
+		{
+			Tail(pHeader, ValObj);
+			ns++;
+		}
+	}
+	fclose(pf);
+	return ns;
+}
+
+
